@@ -2,6 +2,7 @@ package com.example.lab43;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,14 +33,27 @@ ArrayAdapter<String> adapter; //Returns a view for each object in a collection o
         stocks = new ArrayList<>();
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, stocks); //Pasing the context, the row layout  and the resource?
         textView.setAdapter(adapter); //Setting to the listview the arrayadapter that returns the view from the arraylist
-        addstock();
+
+
+    addstock("AAPL", "Apple");
+    addstock("FB","Facebook");
+    addstock("GOOG","Google");
+    addstock("RHT","Red Hat");
+    addstock("NOK","Nokia");
+
+
 
     }
 //TODO: add the rest of the stocks
-    private void addstock() {
-        final String stockID = "AAPL";
-        final String stockName = "Apple";
-        String url = "https://financialmodelingprep.com/api/company/price/" + stockID + "?datatype=json";
+    private void addstock(final String stockID, final String stockName) {
+
+
+
+
+
+
+
+        String url = "https://financialmodelingprep.com/api/company/price/" +stockID+"?datatype=json";
 
         //Making the request
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -50,7 +64,7 @@ ArrayAdapter<String> adapter; //Returns a view for each object in a collection o
                         try{
 
                             JSONObject value = response.getJSONObject(stockID);
-
+                            Log.i("MAIN", "response: " + response.toString());
                             String price = value.getString("price");
                             String Linestock = stockName+ ":"+price+"$";
                             stocks.add(Linestock);//Adding it to the arraylist
